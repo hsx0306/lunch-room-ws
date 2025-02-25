@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Counter</title>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="logo"><img src="logo.png" alt=""> <textlogo>신천고등학교</textlogo></div>
+        <h3>현재 급식실 인원</h3>
+        <h1>현재 인원: <span id="counter">0</span> /400</h1>
+    </div>
+
+
+</body>
+
+
+<script>
+    const counterElement = document.getElementById('counter');
+
+    // async function fetchCounterValue() {
+    //   const response = await fetch('/get-counter');
+    //   if (response.ok) {
+    //     const value = await response.text();
+    //     counterElement.innerText = value;
+    //   } else {
+    //     console.error('Error:', response.status);
+    //   }
+    // }
+
+    // setInterval(fetchCounterValue, 500);  // 1000 밀리초(1초) 간격으로 값을 가져옵니다.
+
+    //실제코드는 하단의 socket으로 대체함.
+
+    let socket = new WebSocket("ws://localhost:1080");
+    socket.onmessage = function(event) {
+        counterElement.innerText = event.data;
+    };
+
+
+</script>
+
+
+
+<style>
+    .container {
+        text-align: center;
+        justify-items: center;
+        justify-content: center;
+    }
+    img {
+        width: 12px;
+        height: 12px;
+    }
+    textlogo{
+        font-size: 15px;
+    }
+
+
+</style>
+</html>

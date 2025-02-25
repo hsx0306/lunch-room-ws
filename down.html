@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            user-select: none; /* 셀렉션 및 드래그 방지 */
+        }
+        h1 {
+            font-size: 48px;
+        }
+    </style>
+</head>
+<body onclick="decrementCounter(); count('minus');">
+    <h1><div id='result'>0</div></h1>
+    <script>
+        async function decrementCounter() {
+            const response = await fetch('/decrement', { method: 'POST' });
+            if (response.ok) {
+                console.log('Counter decremented successfully!');
+            } else {
+                console.error('Error:', response.status);
+            }
+        }
+    </script>
+
+<script>
+
+    function count(type)  {
+      // 결과를 표시할 element
+      const resultElement = document.getElementById('result');
+      
+      // 현재 화면에 표시된 값
+      let number = resultElement.innerText;
+      
+      // 더하기/빼기
+      if(type === 'plus') {
+        number = parseInt(number) + 1;
+      }else if(type === 'minus')  {
+        number = parseInt(number) - 1;
+      }
+      
+      // 결과 출력
+      resultElement.innerText = number;
+    }
+    
+</script>
+
+</body>
+</html>
